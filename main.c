@@ -80,18 +80,24 @@ void addDoctor(Doctor allDoctor[], int* doctorCount)
 void addPatient(Patient allPatient[], int* patientCount)
 {
     printf("Enter Patient Name: ");
+    fflush(stdin);
     scanf("%[^\n]s", allPatient[*patientCount].name);
     printf("Enter Patient ID: ");
+    fflush(stdin);
     scanf("%[^\n]s", allPatient[*patientCount].id);
     printf("Enter Patient Address: ");
+    fflush(stdin);
     scanf("%[^\n]s", allPatient[*patientCount].address);
     printf("Enter Patient Phone: ");
+    fflush(stdin);
     scanf("%s", allPatient[*patientCount].phone);
     printf("Enter Patient Age: ");
     scanf("%d", &allPatient[*patientCount].age);
     printf("Enter Patient Treatment: ");
+    fflush(stdin);
     scanf("%[^\n]s", allPatient[*patientCount].treatment);
     printf("Enter Patient Doctor: ");
+    fflush(stdin);
     scanf("%[^\n]s", allPatient[*patientCount].doctor);
     printf("Enter Treatment Type (1 for outdoor treatment, 2 for admission): ");
     int treatmentType;
@@ -100,18 +106,20 @@ void addPatient(Patient allPatient[], int* patientCount)
     if (treatmentType == 2)
     {
         printf("Enter Patient Date of Admission: ");
+        fflush(stdin);
         scanf("%[^\n]s", allPatient[*patientCount].dateOfAdmission);
         printf("Enter Patient Date of Release: ");
+        fflush(stdin);
         scanf("%[^\n]s", allPatient[*patientCount].dateOfRelease);
-        printf("Enter Patient Bill: ");
-        scanf("%f", &allPatient[*patientCount].bill);
+
     }
     else
     {
         allPatient[*patientCount].dateOfAdmission[0] = '\0';
         allPatient[*patientCount].dateOfRelease[0] = '\0';
-        allPatient[*patientCount].bill = 0;
     }
+    printf("Enter Patient Bill: ");
+    scanf("%f", &allPatient[*patientCount].bill);
     (*patientCount)++;
 }
 
@@ -231,6 +239,7 @@ void searchPatient(Patient allPatient[], int patientCount)
 {
     char searchPatient[50];
     printf("Enter Patient Name: ");
+    fflush(stdin);
     scanf("%[^\n]", searchPatient);
     for (int i = 0; i < patientCount; i++)
     {
@@ -286,31 +295,37 @@ void UpdatePatient(Patient allPatient[], int patientCount)
             fflush(stdin);
             scanf("%[^\n]", allPatient[i].name);
             printf("Enter Patient ID: ");
+            fflush(stdin);
             scanf("%s", allPatient[i].id);
             printf("Enter Patient Address: ");
             fflush(stdin);
             scanf("%[^\n]", allPatient[i].address);
             printf("Enter Patient Phone: ");
+            fflush(stdin);
             scanf("%s", allPatient[i].phone);
             printf("Enter Patient Age: ");
             scanf("%d", &allPatient[i].age);
             printf("Enter Patient Treatment: ");
             fflush(stdin);
             scanf("%[^\n]", allPatient[i].treatment);
-            if(allPatient.TreatmentType == 1)
+            if(allPatient[i].teatmentType == 1)
             {
                 printf("Enter Doctor: ");
+                fflush(stdin);
                 scanf("%[^\n]", allPatient[i].doctor);
                 printf("Enter Bill Amount: ");
                 scanf("%f", &allPatient[i].bill);
             }
-            else if (treatmentType == 2)
+            else if (allPatient[i].teatmentType == 2)
             {
                 printf("Enter Date of Admission: ");
+                fflush(stdin);
                 scanf("%[^\n]", allPatient[i].dateOfAdmission);
                 printf("Enter Doctor: ");
+                fflush(stdin);
                 scanf("%[^\n]", allPatient[i].doctor);
                 printf("Enter Date of Release: ");
+                fflush(stdin);
                 scanf("%[^\n]", allPatient[i].dateOfRelease);
                 printf("Enter Bill Amount: ");
                 scanf("%f", &allPatient[i].bill);
@@ -318,10 +333,53 @@ void UpdatePatient(Patient allPatient[], int patientCount)
             else
             {
                 printf("Enter Date of Release: ");
+                fflush(stdin);
                 scanf("%[^\n]", allPatient[i].dateOfRelease);
                 printf("Enter Bill Amount: ");
                 scanf("%f", &allPatient[i].bill);
             }
+            break;
+        }
+    }
+}
+
+void checkPayment(Patient allPatient[], int patientCount)
+{
+    char searchPatient[50];
+    printf("Enter Patient Name:");
+    fflush(stdin);
+    scanf("%[^\n]", searchPatient);
+    for (int i = 0; i < patientCount; i++)
+    {
+        if (strcmp(searchPatient, allPatient[i].name) == 0)
+        {
+            if (allPatient[i].bill == 0)
+            {
+                printf("Payment is cleared\n");
+            }
+            else
+            {
+                printf("Payment is not cleared\n");
+                printf("Due amount: %.2f\n", allPatient[i].bill);
+            }
+            break;
+        }
+    }
+}
+
+void totalbill(Patient allPatient[], int patientCount)
+{
+    char searchPatient[50];
+    printf("Enter Patient Name: ");
+    fflush(stdin);
+    scanf("%[^\n]", searchPatient);
+    for (int i = 0; i < patientCount; i++)
+    {
+        if (strcmp(searchPatient, allPatient[i].name) == 0)
+        {
+            printf("Patient name: %s\n", allPatient[i].name);
+            printf("Patient ID: %s\n", allPatient[i].id);
+            printf("Total bill amount: %.2f\n", allPatient[i].bill);
             break;
         }
     }
@@ -440,6 +498,7 @@ int main()
                 system("cls");
                 title();
                 printf("\t--Calculate total bill amount of a patient--\n\n");
+                totalbill(allPatient, patientCount);
                 break;
             }
         case 11:
@@ -447,6 +506,9 @@ int main()
                 system("cls");
                 title();
                 printf("\t--Check if payment is cleared--\n\n");
+                checkPayment(allPatient, patientCount);
+                printf("Click any key to return menu\n");
+                getch();
                 break;
             }
         case 12:
