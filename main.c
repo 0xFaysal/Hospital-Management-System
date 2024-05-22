@@ -338,9 +338,35 @@ void UpdatePatient(Patient allPatient[], int patientCount)
                 printf("Enter Bill Amount: ");
                 scanf("%f", &allPatient[i].bill);
             }
+            return;
+            break;
+        }
+
+    }
+    printf("Patient not found\n");
+}
+
+void deleteDoctor(Doctor allDoctor[], int* doctorCount)
+{
+    char searchDoctor[50];
+    printf("Enter Doctor Name: ");
+    fflush(stdin);
+    scanf("%[^\n]", searchDoctor);
+    for (int i = 0; i < *doctorCount; i++)
+    {
+        if (strcmp(searchDoctor, allDoctor[i].name) == 0)
+        {
+            for (int j = i; j < *doctorCount - 1; j++)
+            {
+                allDoctor[j] = allDoctor[j + 1];
+            }
+            (*doctorCount)--;
+            return;
             break;
         }
     }
+    printf("Doctor not found\n");
+
 }
 
 void checkPayment(Patient allPatient[], int patientCount)
@@ -482,6 +508,8 @@ int main()
                 system("cls");
                 title();
                 printf("\t--Delete Doctor Information--\n\n");
+                deleteDoctor(allDoctor, &doctorCount);
+                storeDoctor(allDoctor, doctorCount);
                 break;
             }
         case 9:
@@ -533,5 +561,3 @@ int main()
     return 0;
 }
 
-// exit(1);
-// break;
