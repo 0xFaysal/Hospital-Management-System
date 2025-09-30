@@ -242,10 +242,7 @@ This project is open source and available for educational purposes.
 
 ## 👨‍💻 Developer
 
-**Hospital Management System**  
-United Hospital  
-Madani Avenue, Vatara, Dhaka-1212  
-Phone: +880123456789
+Developed by **0xFaysal**
 
 ---
 
