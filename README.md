@@ -271,7 +271,6 @@ Potential improvements for future versions:
 
 For questions, issues, or suggestions, please:
 - Open an issue on GitHub
-- Contact the development team at United Hospital
 
 ---
 
